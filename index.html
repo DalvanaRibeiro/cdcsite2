@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questionário - Código de Defesa do Consumidor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .question-card {
+            transition: all 0.3s ease;
+            border-left: 4px solid #3b82f6;
+        }
+        .question-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: all 0.3s ease;
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+        textarea:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen py-8">
+    <div class="max-w-4xl mx-auto px-4">
+        <!-- Header -->
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-gray-800 mb-4">📋 Questionário Dissertativo</h1>
+            <h2 class="text-2xl font-semibold text-blue-600 mb-2">Código de Defesa do Consumidor</h2>
+            <p class="text-gray-600 max-w-2xl mx-auto">Responda às questões dissertativas abaixo com base no seu conhecimento sobre o CDC. Suas respostas serão enviadas por email.</p>
+        </div>
+
+        <!-- Form -->
+        <form id="questionarioForm" class="space-y-8">
+            <!-- Student Info -->
+            <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">📝 Informações do Estudante</h3>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Nome Completo *</label>
+                        <input type="text" id="nomeEstudante" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Matrícula/RA</label>
+                        <input type="text" id="matricula" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 21 -->
+            <div class="question-card bg-white rounded-xl shadow-lg p-6">
+                <h3 class="text-lg font-semibold text-gray-800 mb-3">21. Conceito de "Fornecedor" no CDC</h3>
+                <p class="text-gray-600 mb-4">Explique o conceito de "fornecedor" no Código de Defesa do Consumidor e cite dois exemplos de fornecedores em uma cadeia de consumo.</p>
+                <textarea id="q21" rows="5" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none transition-all resize-none" placeholder="Digite sua resposta aqui..."></textarea>
+            </div>
+
+            <!-- Question 22 -->
+            <div class="question-card bg-white rounded-xl shadow-lg p-6">
+                <h3 class="text-lg font-semibold text-gray-800 mb-3">22. Diferença entre "Consumidor" e "Fornecedor"</h3>
+                <p class="text-gray-600 mb-4">Qual é a diferença entre "consumidor" e "fornecedor", e como o CDC busca equilibrar essa relação de consumo?</p>
+                <textarea id="q22" rows="5" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none transition-all resize-none" placeholder="Digite sua resposta aqui..."></textarea>
+            </div>
+
+            <!-- Question 23 -->
+            <div class="question-card bg-white rounded-xl shadow-lg p-6">
+                <h3 class="text-lg font-semibold text-gray-800 mb-3">23. Direitos do Consumidor - Art. 6º</h3>
+                <p class="text-gray-600 mb-4">Descreva os direitos do consumidor garantidos pelo Art. 6º do Código de Defesa do Consumidor. Cite pelo menos três desses direitos e explique brevemente cada um.</p>
+                <textarea id="q23" rows="5" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none transition-all resize-none" placeholder="Digite sua resposta aqui..."></textarea>
+            </div>
+
+            <!-- Question 24 -->
+            <div class="question-card bg-white rounded-xl shadow-lg p-6">
+                <h3 class="text-lg font-semibold text-gray-800 mb-3">24. Responsabilidade Objetiva</h3>
+                <p class="text-gray-600 mb-4">O que significa "responsabilidade objetiva" no Código de Defesa do Consumidor, e como essa responsabilidade se aplica a produtos e serviços defeituosos?</p>
+                <textarea id="q24" rows="5" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none transition-all resize-none" placeholder="Digite sua resposta aqui..."></textarea>
+            </div>
+
+            <!-- Question 25 -->
+            <div class="question-card bg-white rounded-xl shadow-lg p-6">
+                <h3 class="text-lg font-semibold text-gray-800 mb-3">25. Práticas Comerciais Proibidas</h3>
+                <p class="text-gray-600 mb-4">Quais são as principais práticas comerciais proibidas pelo Código de Defesa do Consumidor no que diz respeito à relação entre fornecedores e consumidores? Explique pelo menos duas delas.</p>
+                <textarea id="q25" rows="5" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none transition-all resize-none" placeholder="Digite sua resposta aqui..."></textarea>
+            </div>
+
+            <!-- Question 26 -->
+            <div class="question-card bg-white rounded-xl shadow-lg p-6">
+                <h3 class="text-lg font-semibold text-gray-800 mb-3">26. Venda Casada vs Publicidade Enganosa</h3>
+                <p class="text-gray-600 mb-4">Explique a diferença entre "venda casada" e "publicidade enganosa". Como essas práticas são abordadas pelo Código de Defesa do Consumidor?</p>
+                <textarea id="q26" rows="5" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none transition-all resize-none" placeholder="Digite sua resposta aqui..."></textarea>
+            </div>
+
+            <!-- Question 27 -->
+            <div class="question-card bg-white rounded-xl shadow-lg p-6">
+                <h3 class="text-lg font-semibold text-gray-800 mb-3">27. Inversão do Ônus da Prova</h3>
+                <p class="text-gray-600 mb-4">Qual é a importância da inversão do ônus da prova no Código de Defesa do Consumidor? Como isso beneficia o consumidor em um processo judicial?</p>
+                <textarea id="q27" rows="5" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none transition-all resize-none" placeholder="Digite sua resposta aqui..."></textarea>
+            </div>
+
+            <!-- Question 28 -->
+            <div class="question-card bg-white rounded-xl shadow-lg p-6">
+                <h3 class="text-lg font-semibold text-gray-800 mb-3">28. Vícios Ocultos</h3>
+                <p class="text-gray-600 mb-4">O que são "vícios ocultos" e como o Código de Defesa do Consumidor protege o consumidor nessa situação?</p>
+                <textarea id="q28" rows="5" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none transition-all resize-none" placeholder="Digite sua resposta aqui..."></textarea>
+            </div>
+
+            <!-- Question 29 -->
+            <div class="question-card bg-white rounded-xl shadow-lg p-6">
+                <h3 class="text-lg font-semibold text-gray-800 mb-3">29. Prazo de Garantia</h3>
+                <p class="text-gray-600 mb-4">O que o Código de Defesa do Consumidor estabelece sobre o prazo de garantia para produtos duráveis e não duráveis?</p>
+                <textarea id="q29" rows="5" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none transition-all resize-none" placeholder="Digite sua resposta aqui..."></textarea>
+            </div>
+
+            <!-- Question 30 -->
+            <div class="question-card bg-white rounded-xl shadow-lg p-6">
+                <h3 class="text-lg font-semibold text-gray-800 mb-3">30. Direitos em Caso de Produto Defeituoso</h3>
+                <p class="text-gray-600 mb-4">De acordo com o CDC, qual é o direito do consumidor quando compra um produto com defeito? Quais são as opções de reparação que o fornecedor deve oferecer?</p>
+                <textarea id="q30" rows="5" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none transition-all resize-none" placeholder="Digite sua resposta aqui..."></textarea>
+            </div>
+
+            <!-- Question 31 -->
+            <div class="question-card bg-white rounded-xl shadow-lg p-6">
+                <h3 class="text-lg font-semibold text-gray-800 mb-3">31. Práticas Abusivas e Sanções</h3>
+                <p class="text-gray-600 mb-4">O que caracteriza uma prática abusiva por parte do fornecedor, e quais são as sanções possíveis?</p>
+                <textarea id="q31" rows="5" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none transition-all resize-none" placeholder="Digite sua resposta aqui..."></textarea>
+            </div>
+
+            <!-- Question 32 -->
+            <div class="question-card bg-white rounded-xl shadow-lg p-6">
+                <h3 class="text-lg font-semibold text-gray-800 mb-3">32. Prazo para Troca de Produto Defeituoso</h3>
+                <p class="text-gray-600 mb-4">Qual é o prazo que o consumidor tem para pedir a troca de um produto defeituoso e o fornecedor não realizar o reparo dentro desse prazo?</p>
+                <textarea id="q32" rows="5" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none transition-all resize-none" placeholder="Digite sua resposta aqui..."></textarea>
+            </div>
+
+            <!-- Question 33 -->
+            <div class="question-card bg-white rounded-xl shadow-lg p-6">
+                <h3 class="text-lg font-semibold text-gray-800 mb-3">33. Publicidade Abusiva</h3>
+                <p class="text-gray-600 mb-4">Explique o conceito de "publicidade abusiva" e como o Código de Defesa do Consumidor protege o consumidor contra esse tipo de prática.</p>
+                <textarea id="q33" rows="5" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none transition-all resize-none" placeholder="Digite sua resposta aqui..."></textarea>
+            </div>
+
+            <!-- Question 34 -->
+            <div class="question-card bg-white rounded-xl shadow-lg p-6">
+                <h3 class="text-lg font-semibold text-gray-800 mb-3">34. Troca por Insatisfação Pessoal</h3>
+                <p class="text-gray-600 mb-4">O Código de Defesa do Consumidor permite que o consumidor peça a troca de produtos por "insatisfação pessoal"? Explique as condições para isso.</p>
+                <textarea id="q34" rows="5" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none transition-all resize-none" placeholder="Digite sua resposta aqui..."></textarea>
+            </div>
+
+            <!-- Question 35 -->
+            <div class="question-card bg-white rounded-xl shadow-lg p-6">
+                <h3 class="text-lg font-semibold text-gray-800 mb-3">35. Contratos de Adesão</h3>
+                <p class="text-gray-600 mb-4">O que a Lei nº 8.078/90 estabelece sobre os contratos de adesão e como o consumidor está protegido nesses casos?</p>
+                <textarea id="q35" rows="5" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none transition-all resize-none" placeholder="Digite sua resposta aqui..."></textarea>
+            </div>
+
+            <!-- Question 36 -->
+            <div class="question-card bg-white rounded-xl shadow-lg p-6">
+                <h3 class="text-lg font-semibold text-gray-800 mb-3">36. Obrigação de Entrega em Tempo Hábil</h3>
+                <p class="text-gray-600 mb-4">Qual é a obrigação do fornecedor em relação à entrega de produtos e serviços em tempo hábil?</p>
+                <textarea id="q36" rows="5" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none transition-all resize-none" placeholder="Digite sua resposta aqui..."></textarea>
+            </div>
+
+            <!-- Question 37 -->
+            <div class="question-card bg-white rounded-xl shadow-lg p-6">
+                <h3 class="text-lg font-semibold text-gray-800 mb-3">37. Compras por Meio Eletrônico</h3>
+                <p class="text-gray-600 mb-4">Explique como a Lei nº 8.078/90 trata das compras feitas por meio eletrônico, como pela internet.</p>
+                <textarea id="q37" rows="5" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none transition-all resize-none" placeholder="Digite sua resposta aqui..."></textarea>
+            </div>
+
+            <!-- Question 38 -->
+            <div class="question-card bg-white rounded-xl shadow-lg p-6">
+                <h3 class="text-lg font-semibold text-gray-800 mb-3">38. Defeitos Ocultos em Produtos</h3>
+                <p class="text-gray-600 mb-4">Quais são os direitos do consumidor em caso de defeitos ocultos em produtos adquiridos?</p>
+                <textarea id="q38" rows="5" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none transition-all resize-none" placeholder="Digite sua resposta aqui..."></textarea>
+            </div>
+
+            <!-- Question 39 -->
+            <div class="question-card bg-white rounded-xl shadow-lg p-6">
+                <h3 class="text-lg font-semibold text-gray-800 mb-3">39. Informações Mínimas do Fornecedor</h3>
+                <p class="text-gray-600 mb-4">O Código de Defesa do Consumidor exige que os produtos sejam entregues com informações claras e adequadas. Quais informações mínimas o fornecedor deve oferecer ao consumidor?</p>
+                <textarea id="q39" rows="5" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none transition-all resize-none" placeholder="Digite sua resposta aqui..."></textarea>
+            </div>
+
+            <!-- Question 40 -->
+            <div class="question-card bg-white rounded-xl shadow-lg p-6">
+                <h3 class="text-lg font-semibold text-gray-800 mb-3">40. Reparação Integral do Consumidor</h3>
+                <p class="text-gray-600 mb-4">O que é a "reparação integral" do consumidor, e como ela se aplica aos casos de defeito no produto ou serviço adquirido?</p>
+                <textarea id="q40" rows="5" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none transition-all resize-none" placeholder="Digite sua resposta aqui..."></textarea>
+            </div>
+
+            <!-- Submit Buttons -->
+            <div class="text-center pt-8 space-y-4">
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <button type="button" id="saveLocal" class="submit-btn text-white font-semibold py-4 px-8 rounded-xl text-lg shadow-lg">
+                        💾 Salvar no PC
+                    </button>
+                    <button type="button" id="loadLocal" class="bg-green-600 hover:bg-green-700 text-white font-semibold py-4 px-8 rounded-xl text-lg shadow-lg transition-all">
+                        📂 Carregar Salvo
+                    </button>
+                    <button type="button" id="downloadPDF" class="submit-btn text-white font-semibold py-4 px-8 rounded-xl text-lg shadow-lg">
+                        📄 Baixar PDF
+                    </button>
+                    <button type="submit" class="submit-btn text-white font-semibold py-4 px-8 rounded-xl text-lg shadow-lg">
+                        📧 Enviar por Email
+                    </button>
+                </div>
+                <p class="text-sm text-gray-500">Email será enviado para: lopesribeirodalvana20@gmail.com</p>
+                <p class="text-xs text-gray-400">💡 Suas respostas são salvas automaticamente enquanto você digita</p>
+            </div>
+        </form>
+
+        <!-- Success Message -->
+        <div id="successMessage" class="hidden bg-green-100 border border-green-400 text-green-700 px-6 py-4 rounded-xl mt-6 text-center">
+            <h3 class="font-semibold">✅ Respostas Enviadas com Sucesso!</h3>
+            <p>Suas respostas foram enviadas para lopesribeirodalvana20@gmail.com</p>
+        </div>
+    </div>
+
+    <script>
+        // Local Storage Functions
+        function saveToLocalStorage() {
+            const formData = {
+                nome: document.getElementById('nomeEstudante').value,
+                matricula: document.getElementById('matricula').value,
+                timestamp: new Date().toISOString(),
+                respostas: {}
+            };
+            
+            // Save all answers
+            const questions = ['q21', 'q22', 'q23', 'q24', 'q25', 'q26', 'q27', 'q28', 'q29', 'q30', 'q31', 'q32', 'q33', 'q34', 'q35', 'q36', 'q37', 'q38', 'q39', 'q40'];
+            questions.forEach(qId => {
+                formData.respostas[qId] = document.getElementById(qId).value;
+            });
+            
+            localStorage.setItem('questionario_cdc', JSON.stringify(formData));
+        }
+        
+        function loadFromLocalStorage() {
+            const savedData = localStorage.getItem('questionario_cdc');
+            if (savedData) {
+                const formData = JSON.parse(savedData);
+                
+                // Load student info
+                document.getElementById('nomeEstudante').value = formData.nome || '';
+                document.getElementById('matricula').value = formData.matricula || '';
+                
+                // Load answers
+                Object.keys(formData.respostas || {}).forEach(qId => {
+                    const element = document.getElementById(qId);
+                    if (element) {
+                        element.value = formData.respostas[qId];
+                        // Trigger resize
+                        element.style.height = 'auto';
+                        element.style.height = Math.max(120, element.scrollHeight) + 'px';
+                    }
+                });
+                
+                const saveDate = new Date(formData.timestamp).toLocaleString('pt-BR');
+                showSuccessMessage(`Dados carregados! Último salvamento: ${saveDate}`);
+            } else {
+                alert('Nenhum dado salvo encontrado.');
+            }
+        }
+        
+        function downloadAsFile() {
+            const nome = document.getElementById('nomeEstudante').value;
+            const matricula = document.getElementById('matricula').value;
+            
+            if (!nome.trim()) {
+                alert('Por favor, preencha seu nome completo antes de salvar.');
+                return;
+            }
+            
+            // Create text content
+            let content = `QUESTIONÁRIO - CÓDIGO DE DEFESA DO CONSUMIDOR\n\n`;
+            content += `Nome: ${nome}\n`;
+            content += `Matrícula: ${matricula || 'Não informado'}\n`;
+            content += `Data: ${new Date().toLocaleDateString('pt-BR')}\n\n`;
+            content += `${'='.repeat(60)}\n\n`;
+            
+            const questions = [
+                { id: 'q21', title: '21. Conceito de "Fornecedor" no CDC' },
+                { id: 'q22', title: '22. Diferença entre "Consumidor" e "Fornecedor"' },
+                { id: 'q23', title: '23. Direitos do Consumidor - Art. 6º' },
+                { id: 'q24', title: '24. Responsabilidade Objetiva' },
+                { id: 'q25', title: '25. Práticas Comerciais Proibidas' },
+                { id: 'q26', title: '26. Venda Casada vs Publicidade Enganosa' },
+                { id: 'q27', title: '27. Inversão do Ônus da Prova' },
+                { id: 'q28', title: '28. Vícios Ocultos' },
+                { id: 'q29', title: '29. Prazo de Garantia' },
+                { id: 'q30', title: '30. Direitos em Caso de Produto Defeituoso' },
+                { id: 'q31', title: '31. Práticas Abusivas e Sanções' },
+                { id: 'q32', title: '32. Prazo para Troca de Produto Defeituoso' },
+                { id: 'q33', title: '33. Publicidade Abusiva' },
+                { id: 'q34', title: '34. Troca por Insatisfação Pessoal' },
+                { id: 'q35', title: '35. Contratos de Adesão' },
+                { id: 'q36', title: '36. Obrigação de Entrega em Tempo Hábil' },
+                { id: 'q37', title: '37. Compras por Meio Eletrônico' },
+                { id: 'q38', title: '38. Defeitos Ocultos em Produtos' },
+                { id: 'q39', title: '39. Informações Mínimas do Fornecedor' },
+                { id: 'q40', title: '40. Reparação Integral do Consumidor' }
+            ];
+            
+            questions.forEach(question => {
+                const answer = document.getElementById(question.id).value.trim();
+                content += `${question.title}\n`;
+                content += `${'-'.repeat(question.title.length)}\n`;
+                content += `${answer || '[Não respondido]'}\n\n`;
+            });
+            
+            // Create and download file
+            const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `Questionario_CDC_${nome.replace(/[^a-zA-Z0-9]/g, '_')}_${new Date().toISOString().split('T')[0]}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+            
+            // Also save to localStorage
+            saveToLocalStorage();
+            showSuccessMessage('Arquivo salvo no seu PC e dados salvos localmente!');
+        }
+        
+        // Auto-save functionality
+        function autoSave() {
+            saveToLocalStorage();
+        }
+        
+        // Load saved data on page load
+        window.addEventListener('load', function() {
+            const savedData = localStorage.getItem('questionario_cdc');
+            if (savedData) {
+                const confirmLoad = confirm('Encontramos dados salvos anteriormente. Deseja carregá-los?');
+                if (confirmLoad) {
+                    loadFromLocalStorage();
+                }
+            }
+        });
+        
+        // Save Local Button
+        document.getElementById('saveLocal').addEventListener('click', downloadAsFile);
+        
+        // Load Local Button
+        document.getElementById('loadLocal').addEventListener('click', loadFromLocalStorage);
+
+        // PDF Download functionality
+        document.getElementById('downloadPDF').addEventListener('click', function() {
+            const nome = document.getElementById('nomeEstudante').value;
+            const matricula = document.getElementById('matricula').value;
+            
+            if (!nome.trim()) {
+                alert('Por favor, preencha seu nome completo antes de baixar o PDF.');
+                return;
+            }
+            
+            try {
+                // Create new PDF document
+                const doc = new window.jspdf.jsPDF();
+                
+                // Header
+                doc.setFontSize(16);
+                doc.setFont('helvetica', 'bold');
+                doc.text('QUESTIONÁRIO - CÓDIGO DE DEFESA DO CONSUMIDOR', 20, 20);
+                
+                // Student info
+                doc.setFontSize(12);
+                doc.setFont('helvetica', 'normal');
+                doc.text(`Nome: ${nome}`, 20, 35);
+                doc.text(`Matrícula: ${matricula || 'Não informado'}`, 20, 45);
+                doc.text(`Data: ${new Date().toLocaleDateString('pt-BR')}`, 20, 55);
+                
+                // Line separator
+                doc.line(20, 65, 190, 65);
+                
+                let yPosition = 80;
+                const pageHeight = doc.internal.pageSize.height;
+                const margin = 20;
+                const lineHeight = 6;
+                const maxWidth = 170;
+                
+                const questions = [
+                    { id: 'q21', title: '21. Conceito de "Fornecedor" no CDC' },
+                    { id: 'q22', title: '22. Diferença entre "Consumidor" e "Fornecedor"' },
+                    { id: 'q23', title: '23. Direitos do Consumidor - Art. 6º' },
+                    { id: 'q24', title: '24. Responsabilidade Objetiva' },
+                    { id: 'q25', title: '25. Práticas Comerciais Proibidas' },
+                    { id: 'q26', title: '26. Venda Casada vs Publicidade Enganosa' },
+                    { id: 'q27', title: '27. Inversão do Ônus da Prova' },
+                    { id: 'q28', title: '28. Vícios Ocultos' },
+                    { id: 'q29', title: '29. Prazo de Garantia' },
+                    { id: 'q30', title: '30. Direitos em Caso de Produto Defeituoso' },
+                    { id: 'q31', title: '31. Práticas Abusivas e Sanções' },
+                    { id: 'q32', title: '32. Prazo para Troca de Produto Defeituoso' },
+                    { id: 'q33', title: '33. Publicidade Abusiva' },
+                    { id: 'q34', title: '34. Troca por Insatisfação Pessoal' },
+                    { id: 'q35', title: '35. Contratos de Adesão' },
+                    { id: 'q36', title: '36. Obrigação de Entrega em Tempo Hábil' },
+                    { id: 'q37', title: '37. Compras por Meio Eletrônico' },
+                    { id: 'q38', title: '38. Defeitos Ocultos em Produtos' },
+                    { id: 'q39', title: '39. Informações Mínimas do Fornecedor' },
+                    { id: 'q40', title: '40. Reparação Integral do Consumidor' }
+                ];
+                
+                questions.forEach((question) => {
+                    const answer = document.getElementById(question.id).value.trim() || '[Não respondido]';
+                    
+                    // Check if we need a new page for the question
+                    if (yPosition > pageHeight - 50) {
+                        doc.addPage();
+                        yPosition = 25;
+                    }
+                    
+                    // Question title
+                    doc.setFontSize(11);
+                    doc.setFont('helvetica', 'bold');
+                    doc.text(question.title, margin, yPosition);
+                    yPosition += lineHeight + 3;
+                    
+                    // Answer
+                    doc.setFont('helvetica', 'normal');
+                    doc.setFontSize(10);
+                    
+                    // Split long text into lines that fit the page width
+                    const splitAnswer = doc.splitTextToSize(answer, maxWidth);
+                    
+                    splitAnswer.forEach(line => {
+                        if (yPosition > pageHeight - 25) {
+                            doc.addPage();
+                            yPosition = 25;
+                        }
+                        doc.text(line, margin, yPosition);
+                        yPosition += lineHeight;
+                    });
+                    
+                    yPosition += 8; // Space between questions
+                });
+                
+                // Generate filename
+                const cleanName = nome.replace(/[^a-zA-Z0-9]/g, '_');
+                const today = new Date().toISOString().split('T')[0];
+                const fileName = `Questionario_CDC_${cleanName}_${today}.pdf`;
+                
+                // Save the PDF
+                doc.save(fileName);
+                
+                // Show success message
+                showSuccessMessage('PDF baixado com sucesso!');
+                
+            } catch (error) {
+                console.error('Erro ao gerar PDF:', error);
+                alert('Erro ao gerar o PDF. Tente novamente.');
+            }
+        });
+
+        document.getElementById('questionarioForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const nome = document.getElementById('nomeEstudante').value;
+            const matricula = document.getElementById('matricula').value;
+            
+            if (!nome.trim()) {
+                alert('Por favor, preencha seu nome completo.');
+                return;
+            }
+            
+            // Collect all answers
+            let emailBody = `QUESTIONÁRIO - CÓDIGO DE DEFESA DO CONSUMIDOR\n\n`;
+            emailBody += `Nome: ${nome}\n`;
+            emailBody += `Matrícula: ${matricula || 'Não informado'}\n`;
+            emailBody += `Data: ${new Date().toLocaleDateString('pt-BR')}\n\n`;
+            emailBody += `${'='.repeat(60)}\n\n`;
+            
+            const questions = [
+                { id: 'q21', title: '21. Conceito de "Fornecedor" no CDC' },
+                { id: 'q22', title: '22. Diferença entre "Consumidor" e "Fornecedor"' },
+                { id: 'q23', title: '23. Direitos do Consumidor - Art. 6º' },
+                { id: 'q24', title: '24. Responsabilidade Objetiva' },
+                { id: 'q25', title: '25. Práticas Comerciais Proibidas' },
+                { id: 'q26', title: '26. Venda Casada vs Publicidade Enganosa' },
+                { id: 'q27', title: '27. Inversão do Ônus da Prova' },
+                { id: 'q28', title: '28. Vícios Ocultos' },
+                { id: 'q29', title: '29. Prazo de Garantia' },
+                { id: 'q30', title: '30. Direitos em Caso de Produto Defeituoso' },
+                { id: 'q31', title: '31. Práticas Abusivas e Sanções' },
+                { id: 'q32', title: '32. Prazo para Troca de Produto Defeituoso' },
+                { id: 'q33', title: '33. Publicidade Abusiva' },
+                { id: 'q34', title: '34. Troca por Insatisfação Pessoal' },
+                { id: 'q35', title: '35. Contratos de Adesão' },
+                { id: 'q36', title: '36. Obrigação de Entrega em Tempo Hábil' },
+                { id: 'q37', title: '37. Compras por Meio Eletrônico' },
+                { id: 'q38', title: '38. Defeitos Ocultos em Produtos' },
+                { id: 'q39', title: '39. Informações Mínimas do Fornecedor' },
+                { id: 'q40', title: '40. Reparação Integral do Consumidor' }
+            ];
+            
+            questions.forEach(question => {
+                const answer = document.getElementById(question.id).value.trim();
+                emailBody += `${question.title}\n`;
+                emailBody += `${'-'.repeat(question.title.length)}\n`;
+                emailBody += `${answer || '[Não respondido]'}\n\n`;
+            });
+            
+            // Create mailto link
+            const subject = encodeURIComponent(`Questionário CDC - ${nome}`);
+            const body = encodeURIComponent(emailBody);
+            const mailtoLink = `mailto:lopesribeirodalvana20@gmail.com?subject=${subject}&body=${body}`;
+            
+            // Open email client
+            window.location.href = mailtoLink;
+            
+            // Show success message
+            showSuccessMessage('Email enviado com sucesso!');
+        });
+        
+        // Function to show success messages
+        function showSuccessMessage(message) {
+            const successDiv = document.getElementById('successMessage');
+            const messageText = successDiv.querySelector('p');
+            messageText.textContent = message;
+            successDiv.classList.remove('hidden');
+            
+            // Scroll to success message
+            successDiv.scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'center'
+            });
+            
+            // Hide message after 5 seconds
+            setTimeout(() => {
+                successDiv.classList.add('hidden');
+            }, 5000);
+        }
+        
+        // Auto-resize textareas and auto-save
+        document.querySelectorAll('textarea').forEach(textarea => {
+            textarea.addEventListener('input', function() {
+                this.style.height = 'auto';
+                this.style.height = Math.max(120, this.scrollHeight) + 'px';
+                // Auto-save after 2 seconds of inactivity
+                clearTimeout(this.saveTimeout);
+                this.saveTimeout = setTimeout(autoSave, 2000);
+            });
+        });
+        
+        // Auto-save for student info fields
+        document.getElementById('nomeEstudante').addEventListener('input', function() {
+            clearTimeout(this.saveTimeout);
+            this.saveTimeout = setTimeout(autoSave, 2000);
+        });
+        
+        document.getElementById('matricula').addEventListener('input', function() {
+            clearTimeout(this.saveTimeout);
+            this.saveTimeout = setTimeout(autoSave, 2000);
+        });
+        
+        // Add progress indicator
+        let answeredQuestions = 0;
+        const totalQuestions = 20;
+        
+        document.querySelectorAll('textarea').forEach(textarea => {
+            textarea.addEventListener('input', function() {
+                const wasEmpty = !this.dataset.hasContent;
+                const isEmpty = !this.value.trim();
+                
+                if (wasEmpty && !isEmpty) {
+                    answeredQuestions++;
+                    this.dataset.hasContent = 'true';
+                } else if (!wasEmpty && isEmpty) {
+                    answeredQuestions--;
+                    delete this.dataset.hasContent;
+                }
+                
+                updateProgress();
+            });
+        });
+        
+        function updateProgress() {
+            const percentage = (answeredQuestions / totalQuestions) * 100;
+            console.log(`Progresso: ${answeredQuestions}/${totalQuestions} questões respondidas (${percentage.toFixed(1)}%)`);
+        }
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'967503b001465218',t:'MTc1Mzg4MDE2OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
